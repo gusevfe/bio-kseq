@@ -1,5 +1,5 @@
 #include <ruby.h>
-#include <kseq.h>
+#include <seqtk/kseq.h>
 #include <zlib.h>
 
 KSEQ_INIT(gzFile, gzread);
