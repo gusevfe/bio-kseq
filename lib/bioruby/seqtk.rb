@@ -1,4 +1,4 @@
-require "ext/seqtk_bindings/seqtk_bindings"
+require "seqtk_bindings/seqtk_bindings"
 require "bioruby/seqtk/version"
 
 module Bioruby
