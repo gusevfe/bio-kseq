@@ -14,6 +14,7 @@ static VALUE kseq_wrapper_comment(VALUE self);
 static VALUE kseq_wrapper_seq(VALUE self);
 static VALUE kseq_wrapper_qual(VALUE self);
 
+VALUE mBio;
 VALUE mSeqtk;
 VALUE cKseq;
 
@@ -23,7 +24,8 @@ typedef struct {
 } Kseq_Wrapper;
 
 void Init_seqtk_bindings() {
-  mSeqtk = rb_define_module("Seqtk");
+  mBio = rb_define_module("Bio");
+  mSeqtk = rb_define_module_under(mBio, "SeqTK");
   cKseq = rb_define_class_under(mSeqtk, "Kseq", rb_cObject);
   rb_define_alloc_func(cKseq, kseq_wrapper_allocate);
   rb_define_method(cKseq, "initialize", kseq_wrapper_initialize, 1);

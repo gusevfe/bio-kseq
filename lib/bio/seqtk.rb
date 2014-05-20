@@ -1,8 +1,8 @@
 require "seqtk_bindings/seqtk_bindings"
-require "bioruby/seqtk/version"
+require "bio/seqtk/version"
 
 module Bio
-  module Seqtk
+  module SeqTK
     # Your code goes here...
   end
 end
