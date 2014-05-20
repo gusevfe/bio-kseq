@@ -5,7 +5,7 @@ require 'bio/seqtk/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "bioruby-seqtk"
-  spec.version       = Bioruby::Seqtk::VERSION
+  spec.version       = Bio::SeqTK::VERSION
   spec.authors       = ["Gusev Fedor"]
   spec.email         = ["gusevfe@gmail.com"]
   spec.summary       = %q{Ruby inferface for SeqTK}
