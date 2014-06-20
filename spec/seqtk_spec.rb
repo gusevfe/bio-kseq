@@ -56,4 +56,31 @@ describe Kseq do
 
     expect(kseq.read!).to be_false
   end
+
+  it 'should read from IO' do
+    tmp = Tempfile.new 'fasta'
+    tmp.puts ">A"
+    tmp.puts "AAAATTTTCCCCGGGG"
+    tmp.puts ">B comment"
+    tmp.puts "GGGGTTTTCCCCAAAA"
+    tmp.close
+
+    io = File.open(tmp.path)
+
+    kseq = Kseq.new io
+
+    expect(kseq.read!).to be_true
+    expect(kseq.name).to eq("A")
+    expect(kseq.comment).to be_nil
+    expect(kseq.seq).to eq("AAAATTTTCCCCGGGG")
+    expect(kseq.qual).to be_nil
+
+    expect(kseq.read!).to be_true
+    expect(kseq.name).to eq("B")
+    expect(kseq.comment).to eq("comment")
+    expect(kseq.seq).to eq("GGGGTTTTCCCCAAAA")
+    expect(kseq.qual).to be_nil
+
+    expect(kseq.read!).to be_false
+  end
 end

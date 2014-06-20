@@ -1,4 +1,7 @@
 #include <ruby.h>
+#include <ruby/io.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <seqtk/kseq.h>
 #include <zlib.h>
 
@@ -15,9 +18,19 @@ VALUE mSeqtk;
 VALUE cKseq;
 
 typedef struct {
+  char from_io;
   kseq_t *seq;
   gzFile fp;
 } Kseq_Wrapper;
+
+FILE *rb_io_stdio_file(rb_io_t *fptr)
+{
+  if (!fptr->stdio_file) {
+    int oflags = rb_io_fmode_oflags(fptr->mode);
+    fptr->stdio_file = rb_fdopen(fptr->fd, rb_io_oflags_modestr(oflags));
+  }
+  return fptr->stdio_file;
+}
 
 #define kseq_wrapper_field(NAME) \
   static VALUE kseq_wrapper_ ## NAME(VALUE self) { \
@@ -58,7 +71,8 @@ static void kseq_wrapper_deallocate(void *p)
 {
   Kseq_Wrapper *w = p;
   kseq_destroy(w->seq);
-  gzclose(w->fp);
+  if (!(w->from_io))
+    gzclose(w->fp);
   free(w);
 }
 
@@ -72,13 +86,25 @@ static VALUE kseq_wrapper_read(VALUE self) {
   return r >= 0 ? Qtrue : Qfalse;
 }
 
-static VALUE kseq_wrapper_initialize(VALUE self, VALUE rb_filename) {
+static VALUE kseq_wrapper_initialize(VALUE self, VALUE value) {
   Kseq_Wrapper *w;
 
-  Check_Type(rb_filename, T_STRING);
   Data_Get_Struct(self, Kseq_Wrapper, w);
+  w->from_io = 0;
 
-  w->fp = gzopen(StringValuePtr(rb_filename), "r"); 
+  switch (TYPE(value)) {
+    case T_STRING:
+      w->fp = gzopen(StringValuePtr(value), "r"); 
+      break;
+    case T_FILE:
+      w->fp = gzdopen(fileno(rb_io_stdio_file(RFILE(value)->fptr)), "r");
+      w->from_io = 1;
+      break;
+    default:
+      rb_raise(rb_eTypeError, "Only strings and IOs are supported");
+      break;
+  }
+
   w->seq = kseq_init(w->fp);
 
   return self;    
