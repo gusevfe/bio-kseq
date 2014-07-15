@@ -1,6 +1,7 @@
-require 'bio/seqtk'
+require 'bio/kseq'
 require 'tempfile'
-include Bio::SeqTK
+
+include Bio
 
 describe Kseq do
   it 'should parse simple FASTA files' do
@@ -13,19 +14,19 @@ describe Kseq do
 
     kseq = Kseq.new tmp.path
 
-    expect(kseq.read!).to be_true
+    expect(kseq.read!).to be_truthy 
     expect(kseq.name).to eq("A")
     expect(kseq.comment).to be_nil
     expect(kseq.seq).to eq("AAAATTTTCCCCGGGG")
     expect(kseq.qual).to be_nil
 
-    expect(kseq.read!).to be_true
+    expect(kseq.read!).to be_truthy 
     expect(kseq.name).to eq("B")
     expect(kseq.comment).to eq("comment")
     expect(kseq.seq).to eq("GGGGTTTTCCCCAAAA")
     expect(kseq.qual).to be_nil
 
-    expect(kseq.read!).to be_false
+    expect(kseq.read!).to be_falsey
   end
 
   it 'should parse simple FASTQ files' do
@@ -42,19 +43,19 @@ describe Kseq do
 
     kseq = Kseq.new tmp.path
 
-    expect(kseq.read!).to be_true
+    expect(kseq.read!).to be_truthy
     expect(kseq.name).to eq("A")
     expect(kseq.comment).to be_nil
     expect(kseq.seq).to eq("AAAATTTTCCCCGGGG")
     expect(kseq.qual).to eq("AAAAAAAAAAAAAAAA")
 
-    expect(kseq.read!).to be_true
+    expect(kseq.read!).to be_truthy
     expect(kseq.name).to eq("B")
     expect(kseq.comment).to eq("comment")
     expect(kseq.seq).to eq("GGGGTTTTCCCCAAAA")
     expect(kseq.qual).to eq("IIIIIIIIIIIIIIII")
 
-    expect(kseq.read!).to be_false
+    expect(kseq.read!).to be_falsey
   end
 
   it 'should read from IO' do
@@ -69,18 +70,18 @@ describe Kseq do
 
     kseq = Kseq.new io
 
-    expect(kseq.read!).to be_true
+    expect(kseq.read!).to be_truthy
     expect(kseq.name).to eq("A")
     expect(kseq.comment).to be_nil
     expect(kseq.seq).to eq("AAAATTTTCCCCGGGG")
     expect(kseq.qual).to be_nil
 
-    expect(kseq.read!).to be_true
+    expect(kseq.read!).to be_truthy
     expect(kseq.name).to eq("B")
     expect(kseq.comment).to eq("comment")
     expect(kseq.seq).to eq("GGGGTTTTCCCCAAAA")
     expect(kseq.qual).to be_nil
 
-    expect(kseq.read!).to be_false
+    expect(kseq.read!).to be_falsey
   end
 end

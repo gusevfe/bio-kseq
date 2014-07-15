@@ -14,7 +14,6 @@ static void kseq_wrapper_deallocate(void *seq);
 static VALUE kseq_wrapper_read(VALUE self);
 
 VALUE mBio;
-VALUE mSeqtk;
 VALUE cKseq;
 
 typedef struct {
@@ -22,15 +21,6 @@ typedef struct {
   kseq_t *seq;
   gzFile fp;
 } Kseq_Wrapper;
-
-FILE *rb_io_stdio_file(rb_io_t *fptr)
-{
-  if (!fptr->stdio_file) {
-    int oflags = rb_io_fmode_oflags(fptr->mode);
-    fptr->stdio_file = rb_fdopen(fptr->fd, rb_io_oflags_modestr(oflags));
-  }
-  return fptr->stdio_file;
-}
 
 #define kseq_wrapper_field(NAME) \
   static VALUE kseq_wrapper_ ## NAME(VALUE self) { \
@@ -49,8 +39,7 @@ kseq_wrapper_field(qual);
 
 void Init_seqtk_bindings() {
   mBio = rb_define_module("Bio");
-  mSeqtk = rb_define_module_under(mBio, "SeqTK");
-  cKseq = rb_define_class_under(mSeqtk, "Kseq", rb_cObject);
+  cKseq = rb_define_class_under(mBio, "Kseq", rb_cObject);
   rb_define_alloc_func(cKseq, kseq_wrapper_allocate);
   rb_define_method(cKseq, "initialize", kseq_wrapper_initialize, 1);
 
