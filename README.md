@@ -1,6 +1,6 @@
 # Bio::Kseq
 
-Ruby bindings for very fast FASTA/Q parser [kseq.h](https://github.com/lh3/seqtk/blob/master/kseq.h) by Heng Li.
+Ruby bindings for a very fast FASTA/Q parser [kseq.h](https://github.com/lh3/seqtk/blob/master/kseq.h) by Heng Li.
 
 A default FASTA/Q parser from [BioRuby](http://bioruby.org) is extremly slow. One alternative is to use [bio-faster](https://github.com/fstrozzi/bioruby-faster) but that lacks support for FASTA files.
 
@@ -43,9 +43,9 @@ kseq.comment # = "071112_SLXA-EAS1_s_7:5:1:817:345 length=36", may be nil
 kseq.seq     # = "GGGTGATGGCCGCTGCCGATGGCGTCAAATCCCACC"
 kseq.qual    # = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII9IG9IC", may be nil
 
-# Helpers to output stuff
-
 kseq = Bio::Kseq.new(IO.popen("zcat test.fastq.gz")) # You can also process Ruby IO objects
+kseq.read! or throw "Failed to read test.fastq.gz")
+puts kseq # Outputs a valid FASTQ entry
 ```
 
 ## Contributing
