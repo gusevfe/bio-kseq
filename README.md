@@ -31,7 +31,7 @@ while kseq.read! # returns truthy values when there is an entry
 end
 
 kseq = Bio::Kseq.new("test.fastq.gz") # You can open GZIPed files flawlessly
-kseq.read! or throw "Failed to read test.fastq.gz")
+kseq.read! or throw("Failed to read test.fastq.gz")
 
 # Suppose entry is like this:
 # @SRR001666.1 071112_SLXA-EAS1_s_7:5:1:817:345 length=36
@@ -44,7 +44,7 @@ kseq.seq     # = "GGGTGATGGCCGCTGCCGATGGCGTCAAATCCCACC"
 kseq.qual    # = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII9IG9IC", may be nil
 
 kseq = Bio::Kseq.new(IO.popen("zcat test.fastq.gz")) # You can also process Ruby IO objects
-kseq.read! or throw "Failed to read test.fastq.gz")
+kseq.read! or throw("Failed to read test.fastq.gz")
 puts kseq # Outputs a valid FASTQ entry
 ```
 
