@@ -1,4 +1,4 @@
-# Bio::Kseq
+# Bio::Kseq [![Build Status](https://travis-ci.org/gusevfe/bio-kseq.svg?branch=master)](https://travis-ci.org/gusevfe/bio-kseq)
 
 Ruby bindings for a very fast FASTA/Q parser [kseq.h](https://github.com/lh3/seqtk/blob/master/kseq.h) by Heng Li.
 
