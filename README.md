@@ -1,6 +1,8 @@
-# Bioruby::Seqtk
+# Bio::Kseq
 
-TODO: Write a gem description
+Ruby bindings for very fast FASTA/Q parser [kseq.h][https://github.com/lh3/seqtk/blob/master/kseq.h] by Heng Li.
+
+A default FASTA/Q parser from [BioRuby][1] is extremly slow. One alternative is to use [bio-faster][https://github.com/fstrozzi/bioruby-faster] but that lacks support for FASTA files.
 
 ## Installation
 
@@ -18,11 +20,37 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+require 'bio/kseq'
+
+# Convert FASTQ to FASTA
+kseq = Bio::Kseq.new("test.fastq")
+while kseq.read! # returns truthy values when there is an entry
+  puts ">" + kseq.name 
+  puts kseq.seq
+end
+
+kseq = Bio::Kseq.new("test.fastq.gz") # You can open GZIPed files flawlessly
+kseq.read! or throw "Failed to read test.fastq.gz")
+
+# Suppose entry is like this:
+# @SRR001666.1 071112_SLXA-EAS1_s_7:5:1:817:345 length=36
+# GGGTGATGGCCGCTGCCGATGGCGTCAAATCCCACC
+# +SRR001666.1 071112_SLXA-EAS1_s_7:5:1:817:345 length=36
+# IIIIIIIIIIIIIIIIIIIIIIIIIIIIII9IG9IC
+kseq.name    # = "SRR001666.1"
+kseq.comment # = "071112_SLXA-EAS1_s_7:5:1:817:345 length=36", may be nil
+kseq.seq     # = "GGGTGATGGCCGCTGCCGATGGCGTCAAATCCCACC"
+kseq.qual    # = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII9IG9IC", may be nil
+
+# Helpers to output stuff
+
+kseq = Bio::Kseq.new(IO.popen("zcat test.fastq.gz")) # You can also process Ruby IO objects
+```
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/bioruby-seqtk/fork )
+1. Fork it ( http://github.com/gusevfe/bioruby-seqtk/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

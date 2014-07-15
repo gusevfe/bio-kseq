@@ -84,4 +84,17 @@ describe Kseq do
 
     expect(kseq.read!).to be_falsey
   end
+
+  it 'should read comment' do
+    tmp = Tempfile.new 'fasta'
+    tmp.puts "@SRR001666.1 071112_SLXA-EAS1_s_7:5:1:817:345 length=36"
+    tmp.puts "GGGTGATGGCCGCTGCCGATGGCGTCAAATCCCACC"
+    tmp.puts "+SRR001666.1 071112_SLXA-EAS1_s_7:5:1:817:345 length=36"
+    tmp.puts "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII9IG9IC"
+    tmp.close
+
+    kseq = Kseq.new tmp.path
+    expect(kseq.read!).to be_truthy
+    expect(kseq.comment).to eq("071112_SLXA-EAS1_s_7:5:1:817:345 length=36")
+  end
 end
