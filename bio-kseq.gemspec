@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Bio::Kseq::VERSION
   spec.authors       = ["Gusev Fedor"]
   spec.email         = ["gusevfe@gmail.com"]
-  spec.summary       = %q{Ruby inferface for Heng Li kseq.h}
+  spec.summary       = %q{Ruby inferface for kseq.h by Heng Li for fast FASTA/Q reading}
   spec.description   = %q{A fast FASTA/FASTQ parser based on kseq.h by Heng Li}
   spec.homepage      = ""
   spec.license       = "MIT"
