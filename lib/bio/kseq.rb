@@ -1,4 +1,4 @@
-require "seqtk_bindings/seqtk_bindings"
+require "seqtk_bindings"
 require "bio/kseq/version"
 
 module Bio
