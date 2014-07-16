@@ -6,7 +6,7 @@ require 'bio/kseq/version'
 Gem::Specification.new do |spec|
   spec.name          = "bio-kseq"
   spec.version       = Bio::Kseq::VERSION
-  spec.authors       = ["Gusev Fedor"]
+  spec.authors       = ["Fedor Gusev"]
   spec.email         = ["gusevfe@gmail.com"]
   spec.summary       = %q{Ruby inferface for kseq.h by Heng Li for fast FASTA/Q reading}
   spec.description   = %q{A fast FASTA/FASTQ parser based on kseq.h by Heng Li}
