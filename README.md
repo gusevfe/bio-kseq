@@ -2,7 +2,15 @@
 
 Ruby bindings for a very fast FASTA/Q parser [kseq.h](https://github.com/lh3/seqtk/blob/master/kseq.h) by Heng Li.
 
-A default FASTA/Q parser from [BioRuby](http://bioruby.org) is extremly slow. One alternative is to use [bio-faster](https://github.com/fstrozzi/bioruby-faster) but that lacks support for FASTA files.
+A default FASTA/Q parser from [BioRuby](http://bioruby.org) is extremly slow. One alternative is to use [bio-faster](https://github.com/fstrozzi/bioruby-faster) but that lacks support for FASTA files. However, `bio-faster` does parse qualities, unlike `bio-kseq`. 
+
+## Timings
+```
+                 user     system     total          real
+BioRuby      2.130000   0.270000   2.400000 (  2.403145)
+Bio::Faster  0.420000   0.070000   0.490000 (  0.486809)
+Bio::Kseq    0.030000   0.010000   0.040000 (  0.037176)
+```
 
 ## Installation
 
