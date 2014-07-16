@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["gusevfe@gmail.com"]
   spec.summary       = %q{Ruby inferface for kseq.h by Heng Li for fast FASTA/Q reading}
   spec.description   = %q{A fast FASTA/FASTQ parser based on kseq.h by Heng Li}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/gusevfe/bio-kseq"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0") - ["timing.rb"]
@@ -25,6 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", ">= 3.0.0"
   spec.add_development_dependency "rake-compiler"
-  spec.add_development_dependency "bio" # For timing script
-  spec.add_development_dependency "bio-faster" # For timing script
+  #spec.add_development_dependency "bio" # For timing script
+  #spec.add_development_dependency "bio-faster" # For timing script
 end
