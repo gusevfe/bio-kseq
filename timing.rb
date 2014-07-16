@@ -1,4 +1,5 @@
 require 'bio'
+require 'bio/faster'
 require 'bio/kseq'
 require 'benchmark'
 require 'tempfile'
