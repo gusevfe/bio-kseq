@@ -16,7 +16,7 @@ Bio::Kseq    0.030000   0.010000   0.040000 (  0.037176)
 
 Add this line to your application's Gemfile:
 
-    gem 'bioruby-seqtk'
+    gem 'bio-kseq'
 
 And then execute:
 
@@ -24,7 +24,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install bioruby-seqtk
+    $ gem install bio-kseq
 
 ## Usage
 
@@ -58,7 +58,7 @@ puts kseq # Outputs a valid FASTQ entry
 
 ## Contributing
 
-1. Fork it ( http://github.com/gusevfe/bioruby-seqtk/fork )
+1. Fork it ( http://github.com/gusevfe/bio-kseq/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
